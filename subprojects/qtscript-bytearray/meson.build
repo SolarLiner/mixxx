@@ -9,7 +9,10 @@ inc = include_directories('.')
 
 src_processed = qt5_mod.preprocess(
   moc_headers: ['bytearrayclass.h', 'bytearrayprototype.h'],
-  moc_sources: ['bytearrayclass.cpp', 'bytearrayprototype.cpp'])
+  moc_sources: ['bytearrayclass.cpp', 'bytearrayprototype.cpp'],
+  include_directories: inc,
+  dependencies: qt5_dep
+)
 
 lib = library('qtscript-bytearray', src_processed,
            dependencies: qt5_dep,
