@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QTreeWidget>
 
-#include "library/ui_dlgtagfetcher.h"
+#include "ui_dlgtagfetcher.h"
 #include "track/track.h"
 #include "musicbrainz/tagfetcher.h"
 

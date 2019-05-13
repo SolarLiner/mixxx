@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QString>
 
-#include "library/autodj/ui_dlgautodj.h"
+#include "ui_dlgautodj.h"
 #include "preferences/usersettings.h"
 #include "track/track.h"
 #include "library/libraryview.h"

@@ -10,7 +10,7 @@
 #include "controllers/keyboard/keyboardeventfilter.h"
 #include "recording/recordingmanager.h"
 #include "track/track.h"
-#include "library/recording/ui_dlgrecording.h"
+#include "ui_dlgrecording.h"
 
 class PlaylistTableModel;
 class QSqlTableModel;

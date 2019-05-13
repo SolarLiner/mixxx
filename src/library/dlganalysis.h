@@ -8,7 +8,7 @@
 #include "library/analysislibrarytablemodel.h"
 #include "library/libraryview.h"
 #include "library/trackcollection.h"
-#include "library/ui_dlganalysis.h"
+#include "ui_dlganalysis.h"
 #include "analyzer/analyzerprogress.h"
 
 class AnalysisLibraryTableModel;

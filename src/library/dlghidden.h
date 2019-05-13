@@ -1,7 +1,7 @@
 #ifndef DLGHIDDEN_H
 #define DLGHIDDEN_H
 
-#include "library/ui_dlghidden.h"
+#include "ui_dlghidden.h"
 #include "preferences/usersettings.h"
 #include "library/library.h"
 #include "library/libraryview.h"

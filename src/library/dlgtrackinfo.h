@@ -7,7 +7,7 @@
 #include <QList>
 #include <QScopedPointer>
 
-#include "library/ui_dlgtrackinfo.h"
+#include "ui_dlgtrackinfo.h"
 #include "track/track.h"
 #include "library/coverart.h"
 #include "util/tapfilter.h"
