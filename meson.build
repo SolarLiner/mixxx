@@ -14,11 +14,13 @@ protobuf_dep = dependency('protobuf')
 # Subprojects
 
 gtest_dep = subproject('gtest-1.7.0').get_variable('gtest_mainless_dep')
+pa_ringbuf_dep = subproject('pa-ringbuffer').get_variable('pa_ringbuffer_dep')
 
 common_deps = [
     threads_dep,
     qt5_dep,
-    gtest_dep
+    gtest_dep,
+    pa_ringbuf_dep
 ]
 
 # includes
