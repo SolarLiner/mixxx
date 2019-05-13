@@ -13,7 +13,7 @@ protobuf_dep = dependency('protobuf')
 
 # Subprojects
 
-gtest_dep = subproject('gtest').get_variable('gtest_main_less_dep')
+gtest_dep = subproject('gtest-1.7.0').get_variable('gtest_mainless_dep')
 
 common_deps = [
     threads_dep,
