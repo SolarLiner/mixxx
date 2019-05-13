@@ -8,11 +8,17 @@ qt5_mod = import('qt5')
 
 # Dependencies
 threads_dep = dependency('threads', required: false)
-qt5_dep = dependency('qt5', modules: ['Core', 'Gui'])
+qt5_dep = dependency('qt5', modules: ['Core', 'Concurrent', 'Gui', 'Sql', 'Widgets', 'Xml'])
+protobuf_dep = dependency('protobuf')
+
+# Subprojects
+
+gtest_dep = subproject('gtest').get_variable('gtest_main_less_dep')
 
 common_deps = [
     threads_dep,
-    qt5_dep
+    qt5_dep,
+    gtest_dep
 ]
 
 # includes
