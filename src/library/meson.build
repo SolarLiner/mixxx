@@ -50,7 +50,7 @@ src_mixxx += files([
     './treeitemmodel.cpp'
 ])
 
-src_ui_files = files([
+src_ui_files += files([
     './dlganalysis.ui',
     './dlgcoverartfullsize.ui',
     './dlghidden.ui',

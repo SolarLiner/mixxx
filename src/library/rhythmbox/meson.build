@@ -1,3 +1,3 @@
-src_mixxx = files([
+src_mixxx += files([
     './rhythmboxfeature.cpp'
 ])

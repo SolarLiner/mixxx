@@ -9,3 +9,5 @@ src_mixxx += files([
     './settingsmanager.cpp',
     './upgrade.cpp'
 ])
+
+subdir('dialog')
