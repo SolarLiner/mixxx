@@ -8,7 +8,18 @@ qt5_mod = import('qt5')
 
 # Dependencies
 threads_dep = dependency('threads', required: false)
-qt5_dep = dependency('qt5', modules: ['Core', 'Concurrent', 'Gui', 'Sql', 'Widgets', 'Xml'])
+qt5_dep = dependency('qt5', modules: [
+    'Core',
+    'Concurrent',
+    'Gui',
+    'Network',
+    'Script',
+    'ScriptTools',
+    'Sql',
+    'Svg',
+    'Widgets',
+    'Xml'
+])
 protobuf_dep = dependency('protobuf')
 
 # Subprojects
