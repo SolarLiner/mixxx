@@ -15,6 +15,9 @@ common_deps = [
     qt5_dep
 ]
 
+# includes
+inc_project = include_directories('src', 'lib')
+
 # Build up the sources variable
 subdir('res')
 subdir('src')
