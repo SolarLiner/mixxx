@@ -48,7 +48,12 @@ git_rev = run_command(git_exe, 'rev-parse', '--short', 'HEAD').stdout().strip()
 message('Building @0@ - rev. @1@'.format(git_branch, git_rev))
 
 # Build Mixxx (libmixxx is defined in src/meson.build)
-mixxx_main = executable('mixxx', ['src/main.cpp'], link_with: [libmixxx_static, mixxx_qrc], dependencies: [qt5_dep], install:true)
+mixxx_main = executable('mixxx', ['src/main.cpp'],
+    link_with: [libmixxx_static, mixxx_qrc],
+    include_directories: inc_project,
+    dependencies: [qt5_dep],
+    install:true
+)
 
 if get_option('ENABLE_TESTS')
     mixxx_test = executable('mixxx-tests', src_tests, link_with:[libmixxx_static, mixxx_qrc], dependencies:[qt5_dep])
