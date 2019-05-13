@@ -26,13 +26,15 @@ protobuf_dep = dependency('protobuf')
 gtest_dep = subproject('gtest-1.7.0').get_variable('gtest_mainless_dep')
 pa_ringbuf_dep = subproject('pa-ringbuffer').get_variable('pa_ringbuffer_dep')
 qtscript_bytearray_dep = subproject('qtscript-bytearray').get_variable('qtscript_bytearray_dep')
+xwax_dep = subproject('xwax').get_variable('xwax_dep')
 
 common_deps = [
     threads_dep,
     qt5_dep,
     gtest_dep,
     pa_ringbuf_dep,
-    qtscript_bytearray_dep
+    qtscript_bytearray_dep,
+    xwax_dep
 ]
 
 # includes
