@@ -13,6 +13,7 @@ qt5_dep = dependency('qt5', modules: [
     'Concurrent',
     'Gui',
     'Network',
+    'OpenGL',
     'Script',
     'ScriptTools',
     'Sql',
