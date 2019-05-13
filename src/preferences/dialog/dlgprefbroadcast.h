@@ -4,7 +4,7 @@
 #include <QModelIndex>
 #include <QWidget>
 
-#include "preferences/dialog/ui_dlgprefbroadcastdlg.h"
+#include "ui_dlgprefbroadcastdlg.h"
 #include "control/controlobject.h"
 #include "preferences/usersettings.h"
 #include "broadcast/defs_broadcast.h"

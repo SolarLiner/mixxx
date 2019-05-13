@@ -16,7 +16,7 @@
 #ifndef DLGPREFSOUNDITEM_H
 #define DLGPREFSOUNDITEM_H
 
-#include "preferences/dialog/ui_dlgprefsounditem.h"
+#include "ui_dlgprefsounditem.h"
 #include "soundio/soundmanagerutil.h"
 #include "soundio/sounddevice.h"
 

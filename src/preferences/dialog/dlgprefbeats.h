@@ -13,7 +13,7 @@
 #include "preferences/beatdetectionsettings.h"
 #include "preferences/usersettings.h"
 #include "preferences/dlgpreferencepage.h"
-#include "preferences/dialog/ui_dlgprefbeatsdlg.h"
+#include "ui_dlgprefbeatsdlg.h"
 
 class DlgPrefBeats : public DlgPreferencePage, public Ui::DlgBeatsDlg {
     Q_OBJECT

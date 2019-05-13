@@ -5,7 +5,7 @@
 #include <QWidget>
 #include <QFont>
 
-#include "preferences/dialog/ui_dlgpreflibrarydlg.h"
+#include "ui_dlgpreflibrarydlg.h"
 #include "preferences/usersettings.h"
 #include "library/library.h"
 #include "library/library_preferences.h"

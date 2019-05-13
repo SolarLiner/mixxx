@@ -16,7 +16,7 @@
 #include "controllers/controllerpreset.h"
 #include "controllers/controllerpresetinfo.h"
 #include "controllers/dlgcontrollerlearning.h"
-#include "controllers/ui_dlgprefcontrollerdlg.h"
+#include "ui_dlgprefcontrollerdlg.h"
 #include "preferences/usersettings.h"
 #include "preferences/dlgpreferencepage.h"
 

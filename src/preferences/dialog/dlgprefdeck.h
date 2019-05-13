@@ -5,7 +5,7 @@
 
 #include "engine/controls/ratecontrol.h"
 #include "preferences/constants.h"
-#include "preferences/dialog/ui_dlgprefdeckdlg.h"
+#include "ui_dlgprefdeckdlg.h"
 #include "preferences/usersettings.h"
 #include "preferences/dlgpreferencepage.h"
 

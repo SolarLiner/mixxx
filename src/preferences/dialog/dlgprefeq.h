@@ -21,7 +21,7 @@
 #include <QWidget>
 #include <QComboBox>
 
-#include "preferences/dialog/ui_dlgprefeqdlg.h"
+#include "ui_dlgprefeqdlg.h"
 #include "preferences/usersettings.h"
 #include "control/controlproxy.h"
 #include "preferences/dlgpreferencepage.h"

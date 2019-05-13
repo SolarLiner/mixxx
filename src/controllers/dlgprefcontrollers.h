@@ -5,7 +5,7 @@
 #include <QSignalMapper>
 
 #include "preferences/usersettings.h"
-#include "controllers/ui_dlgprefcontrollersdlg.h"
+#include "ui_dlgprefcontrollersdlg.h"
 #include "preferences/dlgpreferencepage.h"
 
 class DlgPreferences;

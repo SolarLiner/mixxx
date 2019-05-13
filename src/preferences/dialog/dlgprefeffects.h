@@ -2,7 +2,7 @@
 #define DLGPREFEFFECTS_H
 
 #include "preferences/usersettings.h"
-#include "preferences/dialog/ui_dlgprefeffectsdlg.h"
+#include "ui_dlgprefeffectsdlg.h"
 #include "preferences/dlgpreferencepage.h"
 #include "preferences/effectsettingsmodel.h"
 

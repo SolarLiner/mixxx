@@ -23,7 +23,7 @@
 #include <QRect>
 #include <QStringList>
 
-#include "preferences/dialog/ui_dlgpreferencesdlg.h"
+#include "ui_dlgpreferencesdlg.h"
 #include "preferences/usersettings.h"
 #include "control/controlpushbutton.h"
 #include "preferences/dlgpreferencepage.h"
@@ -68,7 +68,7 @@ class DlgPreferences : public QDialog, public Ui::DlgPreferencesDlg {
   public:
     DlgPreferences(MixxxMainWindow* mixxx, SkinLoader* pSkinLoader, SoundManager* soundman,
                    PlayerManager* pPlayerManager, ControllerManager* controllers,
-                   VinylControlManager* pVCManager, LV2Backend* pLV2Backend, 
+                   VinylControlManager* pVCManager, LV2Backend* pLV2Backend,
                    EffectsManager* pEffectsManager,
                    SettingsManager* pSettingsManager, Library *pLibrary);
     virtual ~DlgPreferences();

@@ -13,7 +13,7 @@
 #include <QString>
 #include <QTimer>
 
-#include "controllers/ui_dlgcontrollerlearning.h"
+#include "ui_dlgcontrollerlearning.h"
 #include "controllers/controlpickermenu.h"
 #include "controllers/midi/midicontroller.h"
 #ifdef __HID__

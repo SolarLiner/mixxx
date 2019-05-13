@@ -7,7 +7,7 @@
 
 #include "analyzer/plugins/analyzerplugin.h"
 #include "control/controlproxy.h"
-#include "preferences/dialog/ui_dlgprefkeydlg.h"
+#include "ui_dlgprefkeydlg.h"
 #include "preferences/keydetectionsettings.h"
 #include "preferences/usersettings.h"
 #include "track/keyutils.h"

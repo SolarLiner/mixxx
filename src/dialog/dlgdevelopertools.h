@@ -8,7 +8,7 @@
 
 #include "control/controlmodel.h"
 #include "control/controlobject.h"
-#include "dialog/ui_dlgdevelopertoolsdlg.h"
+#include "ui_dlgdevelopertoolsdlg.h"
 #include "preferences/usersettings.h"
 #include "util/statmodel.h"
 

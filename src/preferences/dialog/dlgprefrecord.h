@@ -5,7 +5,7 @@
 #include <QRadioButton>
 #include <QWidget>
 
-#include "preferences/dialog/ui_dlgprefrecorddlg.h"
+#include "ui_dlgprefrecorddlg.h"
 #include "preferences/usersettings.h"
 #include "preferences/dlgpreferencepage.h"
 #include "encoder/encoder.h"

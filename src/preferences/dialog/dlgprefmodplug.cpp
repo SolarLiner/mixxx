@@ -2,7 +2,7 @@
 #include <QtDebug>
 
 #include "preferences/dialog/dlgprefmodplug.h"
-#include "preferences/dialog/ui_dlgprefmodplugdlg.h"
+#include "ui_dlgprefmodplugdlg.h"
 
 #include "preferences/usersettings.h"
 #include "sources/soundsourcemodplug.h"

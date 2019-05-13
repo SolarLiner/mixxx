@@ -4,7 +4,7 @@
 #include <QButtonGroup>
 #include <QWidget>
 
-#include "preferences/dialog/ui_dlgprefreplaygaindlg.h"
+#include "ui_dlgprefreplaygaindlg.h"
 #include "preferences/replaygainsettings.h"
 #include "control/controlproxy.h"
 #include "preferences/dlgpreferencepage.h"

@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-#include "preferences/dialog/ui_dlgprefcrossfaderdlg.h"
+#include "ui_dlgprefcrossfaderdlg.h"
 #include "preferences/usersettings.h"
 #include "control/controlproxy.h"
 #include "preferences/dlgpreferencepage.h"

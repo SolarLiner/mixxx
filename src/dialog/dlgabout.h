@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-#include "dialog/ui_dlgaboutdlg.h"
+#include "ui_dlgaboutdlg.h"
 #include "preferences/usersettings.h"
 
 class DlgAbout : public QDialog, public Ui::DlgAboutDlg {

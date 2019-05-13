@@ -21,7 +21,7 @@
 #include <QWidget>
 
 #include "preferences/constants.h"
-#include "preferences/dialog/ui_dlgprefinterfacedlg.h"
+#include "ui_dlgprefinterfacedlg.h"
 #include "preferences/usersettings.h"
 #include "preferences/dlgpreferencepage.h"
 
