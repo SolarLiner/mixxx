@@ -1,0 +1,22 @@
+src_mixxx += files([
+    './autopaneffect.cpp',
+    './balanceeffect.cpp',
+    './bessel4lvmixeqeffect.cpp',
+    './bessel8lvmixeqeffect.cpp',
+    './biquadfullkilleqeffect.cpp',
+    './bitcrushereffect.cpp',
+    './builtinbackend.cpp',
+    './echoeffect.cpp',
+    './filtereffect.cpp',
+    './flangereffect.cpp',
+    './graphiceqeffect.cpp',
+    './linkwitzriley8eqeffect.cpp',
+    './loudnesscontoureffect.cpp',
+    './metronomeeffect.cpp',
+    './moogladder4filtereffect.cpp',
+    './parametriceqeffect.cpp',
+    './phasereffect.cpp',
+    './reverbeffect.cpp',
+    './threebandbiquadeqeffect.cpp',
+    './tremoloeffect.cpp'
+])

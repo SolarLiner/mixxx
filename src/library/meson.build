@@ -1,0 +1,72 @@
+src_mixxx += files([
+    './analysisfeature.cpp',
+    './analysislibrarytablemodel.cpp',
+    './baseexternallibraryfeature.cpp',
+    './baseexternalplaylistmodel.cpp',
+    './baseexternaltrackmodel.cpp',
+    './baseplaylistfeature.cpp',
+    './basesqltablemodel.cpp',
+    './basetrackcache.cpp',
+    './bpmdelegate.cpp',
+    './columncache.cpp',
+    './coverartcache.cpp',
+    './coverart.cpp',
+    './coverartdelegate.cpp',
+    './coverartutils.cpp',
+    './dlganalysis.cpp',
+    './dlgcoverartfullsize.cpp',
+    './dlghidden.cpp',
+    './dlgmissing.cpp',
+    './dlgtagfetcher.cpp',
+    './dlgtrackinfo.cpp',
+    './dlgtrackmetadataexport.cpp',
+    './hiddentablemodel.cpp',
+    './librarycontrol.cpp',
+    './library.cpp',
+    './libraryfeature.cpp',
+    './librarytablemodel.cpp',
+    './locationdelegate.cpp',
+    './missingtablemodel.cpp',
+    './mixxxlibraryfeature.cpp',
+    './parser.cpp',
+    './parsercsv.cpp',
+    './parserm3u.cpp',
+    './parserpls.cpp',
+    './playlistfeature.cpp',
+    './playlisttablemodel.cpp',
+    './previewbuttondelegate.cpp',
+    './proxytrackmodel.cpp',
+    './searchquery.cpp',
+    './searchqueryparser.cpp',
+    './setlogfeature.cpp',
+    './sidebarmodel.cpp',
+    './songdownloader.cpp',
+    './stardelegate.cpp',
+    './stareditor.cpp',
+    './starrating.cpp',
+    './tableitemdelegate.cpp',
+    './trackcollection.cpp',
+    './treeitem.cpp',
+    './treeitemmodel.cpp'
+])
+
+src_ui_files = files([
+    './dlganalysis.ui',
+    './dlgcoverartfullsize.ui',
+    './dlghidden.ui',
+    './dlgmissing.ui',
+    './dlgtagfetcher.ui',
+    './dlgtrackinfo.ui'
+])
+
+subdir('browse')
+subdir('rhythmbox')
+subdir('scanner')
+subdir('itunes')
+subdir('dao')
+subdir('recording')
+subdir('banshee')
+subdir('crate')
+subdir('traktor')
+subdir('autodj')
+subdir('export')
