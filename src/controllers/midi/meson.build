@@ -1,6 +1,4 @@
 src_mixxx += files([
-    './hss1394controller.cpp',
-    './hss1394enumerator.cpp',
     './midicontroller.cpp',
     './midicontrollerpresetfilehandler.cpp',
     './midienumerator.cpp',
@@ -10,3 +8,10 @@ src_mixxx += files([
     './portmidicontroller.cpp',
     './portmidienumerator.cpp'
 ])
+
+if host_machine.system() == 'windows' or host_machine.system() == 'darwin'
+    src_mixxx += files([
+        './hss1394controller.cpp',
+        './hss1394enumerator.cpp'
+    ])
+endif
