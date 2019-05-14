@@ -1,1 +1,2 @@
 option('ENABLE_TESTS', type: 'boolean', value: false, description: 'Build tests executable')
+option('ENABLE_HID', type: 'boolean', value: true, description: 'Use HID API with Mixxx')

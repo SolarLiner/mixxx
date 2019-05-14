@@ -41,6 +41,13 @@ common_deps = [
 # includes
 inc_project = include_directories('src', 'lib')
 
+# Optional features
+if get_option('ENABLE_HID')
+    hid_dep = dependency('hidapi-libusb', fallback: ['hidapi-0.8.0-rc1', 'hidapi_dep'])
+    common_deps += hid_dep
+    add_project_arguments('-D__HID__', language: 'cpp')
+endif
+
 # Build up the sources variable
 subdir('res')
 subdir('src')
