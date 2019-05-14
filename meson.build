@@ -23,6 +23,7 @@ qt5_dep = dependency('qt5', modules: [
 ])
 protobuf_dep = dependency('protobuf')
 libusb_dep = dependency('libusb-1.0')
+lilv_dep = dependency('lilv-0', required: get_option('FEATURE_LV2'))
 
 # Subprojects
 gtest_dep = subproject('gtest-1.7.0').get_variable('gtest_mainless_dep')
@@ -36,6 +37,7 @@ common_deps = [
     threads_dep,
     qt5_dep,
     libusb_dep,
+    lilv_dep,
     gtest_dep,
     pa_ringbuf_dep,
     libebur128_dep,
