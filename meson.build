@@ -27,6 +27,7 @@ libmodplug_dep = dependency('libmodplug')
 lilv_dep = dependency('lilv-0', required: get_option('FEATURE_LV2'))
 
 # Subprojects
+fidlib_dep = subproject('fidlib').get_variable('fidlib_dep')
 gtest_dep = subproject('gtest-1.7.0').get_variable('gtest_mainless_dep')
 pa_ringbuf_dep = subproject('pa-ringbuffer').get_variable('pa_ringbuffer_dep')
 libebur128_dep = subproject('libebur128').get_variable('ebur128_dep')
@@ -40,6 +41,7 @@ common_deps = [
     libusb_dep,
     libmodplug_dep,
     lilv_dep,
+    fidlib_dep,
     gtest_dep,
     pa_ringbuf_dep,
     libebur128_dep,
