@@ -1,0 +1,5 @@
+# Ignore wrapped subprojects
+libebur128*
+packagecache
+
+!*.wrap
