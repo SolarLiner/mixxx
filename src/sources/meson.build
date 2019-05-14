@@ -3,7 +3,6 @@ src_mixxx += files([
     './audiosourcestereoproxy.cpp',
     './libfaadloader.cpp',
     './metadatasourcetaglib.cpp',
-    './soundsourcecoreaudio.cpp',
     './soundsource.cpp',
     './soundsourceffmpeg.cpp',
     './soundsourceflac.cpp',
@@ -18,5 +17,9 @@ src_mixxx += files([
     './soundsourcesndfile.cpp',
     './soundsourcewv.cpp'
 ])
+
+if host_machine.system() == 'darwin'
+    src_mixxx += files('./soundsourcecoreaudio.cpp')
+endif
 
 subdir('v1')
