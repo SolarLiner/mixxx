@@ -7,7 +7,6 @@ src_mixxx += files([
     './soundsourceffmpeg.cpp',
     './soundsourceflac.cpp',
     './soundsourcem4a.cpp',
-    './soundsourcemediafoundation.cpp',
     './soundsourcemodplug.cpp',
     './soundsourcemp3.cpp',
     './soundsourceoggvorbis.cpp',
@@ -20,6 +19,8 @@ src_mixxx += files([
 
 if host_machine.system() == 'darwin'
     src_mixxx += files('./soundsourcecoreaudio.cpp')
+elif host_machine.system() == 'windows'
+    src_mixxx += files('./soundsourcemediafoundation.cpp')
 endif
 
 subdir('v1')
