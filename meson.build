@@ -23,6 +23,7 @@ qt5_dep = dependency('qt5', modules: [
 ])
 protobuf_dep = dependency('protobuf')
 libusb_dep = dependency('libusb-1.0')
+libmodplug_dep = dependency('libmodplug')
 lilv_dep = dependency('lilv-0', required: get_option('FEATURE_LV2'))
 
 # Subprojects
@@ -37,6 +38,7 @@ common_deps = [
     threads_dep,
     qt5_dep,
     libusb_dep,
+    libmodplug_dep,
     lilv_dep,
     gtest_dep,
     pa_ringbuf_dep,
