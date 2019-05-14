@@ -22,6 +22,7 @@ qt5_dep = dependency('qt5', modules: [
     'Xml'
 ])
 protobuf_dep = dependency('protobuf')
+libusb_dep = dependency('libusb-1.0')
 
 # Subprojects
 gtest_dep = subproject('gtest-1.7.0').get_variable('gtest_mainless_dep')
@@ -32,6 +33,7 @@ xwax_dep = subproject('xwax').get_variable('xwax_dep')
 common_deps = [
     threads_dep,
     qt5_dep,
+    libusb_dep,
     gtest_dep,
     pa_ringbuf_dep,
     qtscript_bytearray_dep,
