@@ -14,8 +14,11 @@ src_processed = qt5_mod.preprocess(
   dependencies: qt5_dep
 )
 
-lib = library('qtscript-bytearray', src_processed,
-           dependencies: qt5_dep,
-           install : true)
+lib = library('qtscript-bytearray',
+  'bytearrayclass.cpp',
+  'bytearrayprototype.cpp',
+  src_processed,
+  dependencies: qt5_dep,
+  install : true)
 
 qtscript_bytearray_dep = declare_dependency(include_directories: inc, link_with: lib)
