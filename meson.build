@@ -24,7 +24,6 @@ qt5_dep = dependency('qt5', modules: [
 protobuf_dep = dependency('protobuf')
 libusb_dep = dependency('libusb-1.0')
 libmodplug_dep = dependency('libmodplug')
-libmp4_dep = disabler() # Disable mp4, libmp4 dependency not found on Ubuntu Disco
 lilv_dep = dependency('lilv-0', required: get_option('FEATURE_LV2'))
 
 # Subprojects
@@ -41,7 +40,6 @@ common_deps = [
     qt5_dep,
     libusb_dep,
     libmodplug_dep,
-    libmp4_dep,
     lilv_dep,
     fidlib_dep,
     gtest_dep,
@@ -60,6 +58,13 @@ if get_option('ENABLE_HID')
     hid_dep = dependency('hidapi-libusb', fallback: ['hidapi-0.8.0-rc1', 'hidapi_dep'])
     common_deps += hid_dep
     add_project_arguments('-D__HID__', language: 'cpp')
+endif
+if get_option('FEATURE_MP4')
+    libmp4_dep = dependency('mp4v2', required: false) # Disable mp4, libmp4 dependency not found on Ubuntu Disco
+    if not libmp4_dep.found()
+        libmp4_dep = dependency('mp4')
+    endif
+    common_deps += libmp4_dep
 endif
 
 # Build up the sources variable
