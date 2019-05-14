@@ -1,0 +1,10 @@
+[wrap-file]
+directory = libebur128-1.2.4
+
+source_url = https://github.com/jiixyj/libebur128/archive/v1.2.4.tar.gz
+source_filename = libebur128-v1.2.4.tar.gz
+source_hash = 2ee41a3a5ae3891601ae975d5ec2642b997d276ef647cf5c5b363b6127f7add8
+
+patch_url = https://github.com/SolarLiner/libebur128/releases/download/v1.2.4-meson.1/libebur128-v1.2.4-meson.tar.gz
+patch_filename = libebur128-v1.2.4-meson.tar.gz
+patch_hash = 7e8e68caf93ada8049bcce7769eba4a1e808fc6a7b5addb99146de29adce4891
