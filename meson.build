@@ -24,6 +24,7 @@ qt5_dep = dependency('qt5', modules: [
 protobuf_dep = dependency('protobuf')
 libusb_dep = dependency('libusb-1.0')
 libmodplug_dep = dependency('libmodplug')
+libmp4_dep = disabler() # Disable mp4, libmp4 dependency not found on Ubuntu Disco
 lilv_dep = dependency('lilv-0', required: get_option('FEATURE_LV2'))
 
 # Subprojects
@@ -40,6 +41,7 @@ common_deps = [
     qt5_dep,
     libusb_dep,
     libmodplug_dep,
+    libmp4_dep,
     lilv_dep,
     fidlib_dep,
     gtest_dep,
