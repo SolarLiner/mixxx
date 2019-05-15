@@ -1,4 +1,4 @@
-project('gmock', 'cpp', version: '2.3.0-mixxx')
+project('gmock', 'cpp', version: '1.7.0')
 
 gtest_dep = subproject('gtest-1.7.0').get_variable('gtest_mainless_dep')
 
