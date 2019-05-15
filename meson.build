@@ -96,11 +96,11 @@ message('Building @0@ - rev. @1@'.format(git_branch, git_rev))
 # Override MIXXX VERSION define with meson project version
 extra_cc_flags = [
     '-DMIXXX_VERSION="@0@"'.format(meson.project_version()),
-    '-DSETTINGS_FILE=mixxx.cfg'
+    '-DSETTINGS_FILE="mixxx.cfg"'
 ]
 # Set settings file per platform
 if host_machine.system() == 'windows'
-    extra_cc_flags += ['-DSETTINGS_PATH=.mixxx']
+    extra_cc_flags += ['-DSETTINGS_PATH=".mixxx"']
 endif
 
 # Process Qt UI files
