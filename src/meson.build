@@ -1,5 +1,5 @@
 # We omit main as this is the sources for the static library
-src_mixxx = files([
+src_mixxx += files([
     './errordialoghandler.cpp',
     './mixxx.cpp',
     './mixxxapplication.cpp'
@@ -51,16 +51,3 @@ subdir('preferences')
 subdir('engine')
 subdir('database')
 subdir('widget')
-
-# Override MIXXX VERSION define with meson project version
-extra_cc_flags = [
-    '-DMIXXX_VERSION=@0@'.format(meson.project_version())
-]
-
-ui_processed = qt5_mod.preprocess(ui_files: src_ui_files)
-
-libmixxx_static = static_library('libmixxx', src_mixxx, ui_processed, gen_proto,
-  dependencies: common_deps,
-  include_directories: inc_project,
-  cpp_args: extra_cc_flags
-)

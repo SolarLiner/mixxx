@@ -8,6 +8,7 @@ qt5_mod = import('qt5')
 
 # Dependencies
 threads_dep = dependency('threads', required: false)
+opus_dep = dependency('opus')
 qt5_dep = dependency('qt5', modules: [
     'Core',
     'Concurrent',
@@ -39,6 +40,7 @@ xwax_dep = subproject('xwax').get_variable('xwax_dep')
 
 common_deps = [
     threads_dep,
+    opus_dep,
     qt5_dep,
     libusb_dep,
     libmodplug_dep,
@@ -72,6 +74,9 @@ if get_option('FEATURE_MP4')
 endif
 
 # Build up the sources variable
+src_mixxx = []
+
+subdir('lib')
 subdir('res')
 subdir('src')
 
@@ -80,9 +85,22 @@ git_branch = run_command(git_exe, 'rev-parse', '--abbrev-ref', 'HEAD').stdout().
 git_rev = run_command(git_exe, 'rev-parse', '--short', 'HEAD').stdout().strip()
 message('Building @0@ - rev. @1@'.format(git_branch, git_rev))
 
-# Build Mixxx (libmixxx is defined in src/meson.build)
+
+# Override MIXXX VERSION define with meson project version
+extra_cc_flags = [
+    '-DMIXXX_VERSION=@0@'.format(meson.project_version())
+]
+
+ui_processed = qt5_mod.preprocess(ui_files: src_ui_files)
+
+libmixxx = static_library('libmixxx', src_mixxx, ui_processed, gen_proto,
+  dependencies: common_deps,
+  include_directories: inc_project,
+  cpp_args: extra_cc_flags
+)
+
 mixxx_main = executable('mixxx', ['src/main.cpp'],
-    link_with: [libmixxx_static, mixxx_qrc],
+    link_with: [libmixxx, mixxx_qrc],
     include_directories: inc_project,
     dependencies: [qt5_dep],
     install:true

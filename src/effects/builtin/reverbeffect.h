@@ -6,7 +6,7 @@
 
 #include <QMap>
 
-#include <Reverb.h>
+#include <reverb/Reverb.h>
 
 #include "effects/effectprocessor.h"
 #include "engine/effects/engineeffect.h"
