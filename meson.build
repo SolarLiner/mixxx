@@ -24,8 +24,6 @@ qt5_dep = dependency('qt5', modules: [
     'Xml'
 ])
 protobuf_dep = dependency('protobuf')
-libusb_dep = dependency('libusb-1.0')
-libmodplug_dep = dependency('libmodplug')
 lilv_dep = dependency('lilv-0', required: get_option('FEATURE_LV2'))
 portaudio_dep = dependency('portaudio-2.0')
 upower_dep = dependency('upower-glib', required: host_machine.system() == 'linux')
@@ -34,52 +32,119 @@ x11_dep = dependency('x11', required: host_machine.system() == 'linux')
 
 # Subprojects
 fidlib_dep = subproject('fidlib').get_variable('fidlib_dep')
-gtest_dep = subproject('gtest-1.7.0').get_variable('gtest_mainless_dep')
 pa_ringbuf_dep = subproject('pa-ringbuffer').get_variable('pa_ringbuffer_dep')
 libebur128_dep = subproject('libebur128').get_variable('ebur128_dep')
 qm_dsp_dep = subproject('qm-dsp').get_variable('qm_dsp_dep')
 qtscript_bytearray_dep = subproject('qtscript-bytearray').get_variable('qtscript_bytearray_dep')
 replaygain_dep = subproject('replaygain').get_variable('replaygain_dep')
 soundtouch_dep = subproject('soundtouch').get_variable('soundtouch_dep')
-xwax_dep = subproject('xwax').get_variable('xwax_dep')
 
 common_deps = [
     threads_dep,
     opus_dep,
     qt5_dep,
-    libusb_dep,
-    libmodplug_dep,
     lilv_dep,
     portaudio_dep,
     upower_dep,
     wavpack_dep,
     x11_dep,
     fidlib_dep,
-    gtest_dep,
     pa_ringbuf_dep,
     libebur128_dep,
     qm_dsp_dep,
     qtscript_bytearray_dep,
     replaygain_dep,
-    soundtouch_dep,
-    xwax_dep
+    soundtouch_dep
 ]
 
 # includes
 inc_project = include_directories('src', 'lib')
 
 # Optional features
-if get_option('ENABLE_HID')
+if get_option('FEATURE_OPENGLES')
+    add_project_arguments('-D__OPENGLES__', language: 'cpp')
+endif
+if get_option('FEATURE_HSS1394')
+    if not ['windows', 'darwin'].contains(host_machine.system())
+        error('HSS1394 is only available on Windows and OSX.')
+    endif
+    common_deps += dependency('hss1394', required: is_available)
+endif
+if get_option('FEATURE_HID')
     hid_dep = dependency('hidapi-libusb', fallback: ['hidapi-0.8.0-rc1', 'hidapi_dep'])
     common_deps += hid_dep
     add_project_arguments('-D__HID__', language: 'cpp')
 endif
-if get_option('FEATURE_MP4')
+if get_option('FEATURE_BULK')
+    if not host_machine.system() == 'linux'
+        error('USB Bulk is only available on Linux.')
+    endif
+    common_deps += dependency('libusb-1.0')
+endif
+if get_option('FEATURE_MAD')
+    if not host_machine.system() == 'osx'
+        error('MAD decoder is only available on OSX.')
+    endif
+    common_deps += [dependency('mad'), dependency('id3tag')]
+endif
+if get_option('FEATURE_COREAUDIO')
+    if not  host_machine.system() == 'darwin'
+        error('CoreAudio is only available on OSX.')
+    endif
+    common_deps += [dependency('AudioToolbox'), dependency('CoreFoundation')]
+    add_project_arguments('-D__COREAUDIO__', language: 'cpp')
+endif
+if get_option('FEATURE_MEDIAFOUNDATION')
+    if not host_machine.system() == 'windows'
+        error('Media Foundation is only available on Windows.')
+    endif
+    cc = meson.get_compiler('cpp')
+    foreach lib : ['Ole32', 'Mfuuid', 'Mfplat', 'Mfreadwrite']
+        common_deps += cc.find_library(lib)
+    endforeach
+    add_project_arguments('-D__MEDIAFOUNDATION__', language: 'cpp')
+endif
+if get_option('FEATURE_VINYLCONTROL')
+    common_deps += subproject('xwax').get_variable('xwax_dep')
+    add_project_arguments('-D__VINYLCONTROL__', language: 'cpp')
+endif
+if get_option('FEATURE_MODPLUG')
+    common_deps += dependency('libmodplug')
+    add_project_arguments('-D__MODPLUG__')
+endif
+if get_option('FEATURE_FAAD')
+    add_project_arguments('-D__FAAD__', language:'cpp')
     libmp4_dep = dependency('mp4v2', required: false) # Disable mp4, libmp4 dependency not found on Ubuntu Disco
-    if not libmp4_dep.found()
+    if libmp4_dep.found()
+        add_project_arguments('-D__MP4V2__', language:'cpp')
+    else
         libmp4_dep = dependency('mp4')
     endif
     common_deps += libmp4_dep
+endif
+if get_option('FEATURE_WAVPACK')
+    common_deps += dependency('wavpack')
+    add_project_arguments('-D__WV__')
+endif
+
+# Other toggleable options
+if get_option('ENABLE_PERFTOOLS')
+    common_deps += dependency('tcmalloc')
+endif
+if get_option('ENABLE_ASMLIB')
+    # TODO: ASMLIB support
+    warning('ASMLIB skipped, no sources to checkout')
+endif
+if not get_option('ENABLE_BUILDTIME')
+    add_project_arguments('-DDISABLE_BUILDTIME', language: 'cpp')
+endif
+if get_option('ENABLE_PROFILING') and ['linux', 'freebsd'].contains(host_machine.system())
+    add_project_arguments('-pg', language: 'cpp')
+    add_project_link_arguments('-pg', language: 'cpp')
+endif
+if get_option('ENABLE_TEST_SUITE')
+    common_deps += subproject('gmock-1.7.0').get_variable('gmock_dep')
+    common_deps += subproject('benchmark').get_variable('benchmark_dep')
 endif
 
 # Build up the sources variable

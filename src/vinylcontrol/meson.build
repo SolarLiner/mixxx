@@ -1,3 +1,7 @@
+if not get_option('FEATURE_VINYLCONTOL')
+    subdir_done()
+endif
+
 src_mixxx += files([
     './steadypitch.cpp',
     './vinylcontrol.cpp',

@@ -11,13 +11,11 @@ src_mixxx += files([
     './dlgprefkey.cpp',
     './dlgpreflibrary.cpp',
     './dlgpreflv2.cpp',
-    './dlgprefmodplug.cpp',
     './dlgprefnovinyl.cpp',
     './dlgprefrecord.cpp',
     './dlgprefreplaygain.cpp',
     './dlgprefsound.cpp',
     './dlgprefsounditem.cpp',
-    './dlgprefvinyl.cpp',
     './dlgprefwaveform.cpp'
 ])
 
@@ -34,12 +32,21 @@ src_ui_files += files([
     './dlgprefkeydlg.ui',
     './dlgpreflibrarydlg.ui',
     './dlgpreflv2dlg.ui',
-    './dlgprefmodplugdlg.ui',
     './dlgprefnovinyldlg.ui',
     './dlgprefrecorddlg.ui',
     './dlgprefreplaygaindlg.ui',
     './dlgprefsounddlg.ui',
     './dlgprefsounditem.ui',
-    './dlgprefvinyldlg.ui',
     './dlgprefwaveformdlg.ui'
 ])
+
+
+if get_option('FEATURE_VINYLCONTROL')
+    src_mixxx += files('./dlgprefvinyl.cpp')
+    src_ui_files += files('./dlgprefvinyldlg.ui')
+endif
+
+if get_option('FEATURE_MODPLUG')
+    src_mixxx += files('./dlgprefmodplug.cpp')
+    src_ui_files += files('./dlgprefmodplugdlg.ui')
+endif

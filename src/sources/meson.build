@@ -7,7 +7,6 @@ src_mixxx += files([
     './soundsourceffmpeg.cpp',
     './soundsourceflac.cpp',
     './soundsourcemodplug.cpp',
-    './soundsourcemp3.cpp',
     './soundsourceoggvorbis.cpp',
     './soundsourceopus.cpp',
     './soundsourceproviderregistry.cpp',
@@ -16,14 +15,19 @@ src_mixxx += files([
     './soundsourcewv.cpp'
 ])
 
-if host_machine.system() == 'darwin'
+if get_option('FEATURE_COREAUDIO')
+    subdir('v1')
     src_mixxx += files('./soundsourcecoreaudio.cpp')
-elif host_machine.system() == 'windows'
+endif
+
+if get_option('FEATURE_MEDIAFOUNDATION')
     src_mixxx += files('./soundsourcemediafoundation.cpp')
+endif
+
+if get_option('FEATURE_MAD')
+    src_mixxx += files('./soundsourcemp3.cpp')
 endif
 
 if get_option('FEATURE_MP4')
     src_mixxx += files('./soundsourcem4a.cpp')
 endif
-
-subdir('v1')

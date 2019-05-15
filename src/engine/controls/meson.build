@@ -7,5 +7,8 @@ src_mixxx += files([
     './loopingcontrol.cpp',
     './quantizecontrol.cpp',
     './ratecontrol.cpp',
-    './vinylcontrolcontrol.cpp'
 ])
+
+if get_option('FEATURE_VINYLCONTROL')
+    src_mixxx += files('./vinylcontrolcontrol.cpp')
+endif
