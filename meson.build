@@ -30,6 +30,7 @@ lilv_dep = dependency('lilv-0', required: get_option('FEATURE_LV2'))
 portaudio_dep = dependency('portaudio-2.0')
 upower_dep = dependency('upower-glib', required: host_machine.system() == 'linux')
 wavpack_dep = dependency('wavpack')
+x11_dep = dependency('x11', required: host_machine.system() == 'linux')
 
 # Subprojects
 fidlib_dep = subproject('fidlib').get_variable('fidlib_dep')
@@ -52,6 +53,7 @@ common_deps = [
     portaudio_dep,
     upower_dep,
     wavpack_dep,
+    x11_dep,
     fidlib_dep,
     gtest_dep,
     pa_ringbuf_dep,
