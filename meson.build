@@ -122,10 +122,14 @@ libmixxx = static_library('libmixxx', src_mixxx, build_h, ui_processed, gen_prot
 mixxx_main = executable('mixxx', ['src/main.cpp'], gen_proto,
     link_with: [libmixxx, mixxx_qrc],
     include_directories: inc_project,
-    dependencies: [qt5_dep],
+    dependencies: common_deps,
     install:true
 )
 
 if get_option('ENABLE_TESTS')
-    mixxx_test = executable('mixxx-tests', src_tests, link_with:[libmixxx_static, mixxx_qrc], dependencies:[qt5_dep])
+    mixxx_test = executable('mixxx-tests', src_tests,
+        include_directories: inc_project,
+        link_with:[libmixxx, mixxx_qrc],
+        dependencies:common_deps
+    )
 endif
