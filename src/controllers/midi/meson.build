@@ -9,7 +9,7 @@ src_mixxx += files([
     './portmidienumerator.cpp'
 ])
 
-if get_option('FEATURE_HSS1394') and ['windows', 'darwin'].contains(host_machine.system())
+if FEATURE_HSS1394
     src_mixxx += files([
         './hss1394controller.cpp',
         './hss1394enumerator.cpp'

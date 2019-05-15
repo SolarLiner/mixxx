@@ -1,4 +1,4 @@
-if not get_option('FEATURE_LV2')
+if not FEATURE_LV2
     subdir_done()
 endif
 

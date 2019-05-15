@@ -52,7 +52,7 @@ if get_option('FEATURE_BROADCASTING')
     src_ui_files += files('./dlgprefbroadcastdlg.ui')
 endif
 
-if get_option('FEATURE_LV2')
+if FEATURE_LV2
     src_mixxx += files('./dlgpreflv2.cpp')
     src_ui_files += files('./dlgpreflv2dlg.ui')
 endif

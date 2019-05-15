@@ -10,6 +10,7 @@ git_exe = find_program('git')
 qt5_mod = import('qt5')
 
 # Dependencies
+m_dep = cc.find_library('m')
 threads_dep = dependency('threads', required: false)
 opus_dep = dependency('opus')
 qt5_dep = dependency('qt5', modules: [
@@ -36,12 +37,14 @@ x11_dep = dependency('x11', required: host_machine.system() == 'linux')
 fidlib_dep = subproject('fidlib').get_variable('fidlib_dep')
 pa_ringbuf_dep = subproject('pa-ringbuffer').get_variable('pa_ringbuffer_dep')
 libebur128_dep = subproject('libebur128').get_variable('ebur128_dep')
+gtest_dep = subproject('gtest-1.7.0').get_variable('gtest_mainless_dep')
 qm_dsp_dep = subproject('qm-dsp').get_variable('qm_dsp_dep')
 qtscript_bytearray_dep = subproject('qtscript-bytearray').get_variable('qtscript_bytearray_dep')
 replaygain_dep = subproject('replaygain').get_variable('replaygain_dep')
 soundtouch_dep = subproject('soundtouch').get_variable('soundtouch_dep')
 
 common_deps = [
+    m_dep,
     threads_dep,
     opus_dep,
     qt5_dep,
@@ -52,6 +55,7 @@ common_deps = [
     fidlib_dep,
     pa_ringbuf_dep,
     libebur128_dep,
+    gtest_dep,
     qm_dsp_dep,
     qtscript_bytearray_dep,
     replaygain_dep,
@@ -65,56 +69,56 @@ inc_project = include_directories('src', 'lib')
 if get_option('FEATURE_OPENGLES')
     add_project_arguments('-D__OPENGLES__', language: 'cpp')
 endif
-if get_option('FEATURE_HSS1394')
-    if not ['windows', 'darwin'].contains(host_machine.system())
-        error('HSS1394 is only available on Windows and OSX.')
-    endif
+
+FEATURE_HSS1394 = get_option('FEATURE_HSS1394') and ['windows', 'darwin'].contains(host_machine.system())
+if FEATURE_HSS1394
     common_deps += dependency('hss1394', required: is_available)
 endif
-if get_option('FEATURE_HID')
+
+FEATURE_HID = get_option('FEATURE_HID') and host_machine.system() == 'linux'
+if FEATURE_HID
     hid_dep = dependency('hidapi-libusb', fallback: ['hidapi-0.8.0-rc1', 'hidapi_dep'])
     common_deps += hid_dep
     add_project_arguments('-D__HID__', language: 'cpp')
 endif
-if get_option('FEATURE_BULK')
-    if not host_machine.system() == 'linux'
-        error('USB Bulk is only available on Linux.')
-    endif
+
+FEATURE_BULK = get_option('FEATURE_BULK') and host_machine.system() == 'linux'
+if FEATURE_BULK
     common_deps += dependency('libusb-1.0')
 endif
-if get_option('FEATURE_MAD')
-    if not host_machine.system() == 'osx'
-        error('MAD decoder is only available on OSX.')
-    endif
+
+FEATURE_MAD = get_option('FEATURE_MAD') and host_machine.system() == 'darwin'
+if FEATURE_MAD
     common_deps += [dependency('mad'), dependency('id3tag')]
 endif
-if get_option('FEATURE_COREAUDIO')
-    if not  host_machine.system() == 'darwin'
-        error('CoreAudio is only available on OSX.')
-    endif
+
+FEATURE_COREAUDIO = get_option('FEATURE_COREAUDIO') and host_machine.system() == 'darwin'
+if FEATURE_COREAUDIO
     common_deps += [dependency('AudioToolbox'), dependency('CoreFoundation')]
     add_project_arguments('-D__COREAUDIO__', language: 'cpp')
 endif
-if get_option('FEATURE_MEDIAFOUNDATION')
-    if not host_machine.system() == 'windows'
-        error('Media Foundation is only available on Windows.')
-    endif
+
+FEATURE_MEDIAFOUNDATION = get_option('FEATURE_MEDIAFOUNDATION') and host_machine.system() == 'windows'
+if FEATURE_MEDIAFOUNDATION
     foreach lib : ['Ole32', 'Mfuuid', 'Mfplat', 'Mfreadwrite']
         common_deps += cc.find_library(lib)
     endforeach
     add_project_arguments('-D__MEDIAFOUNDATION__', language: 'cpp')
 endif
+
 if get_option('FEATURE_VINYLCONTROL')
     common_deps += subproject('xwax').get_variable('xwax_dep')
     add_project_arguments('-D__VINYLCONTROL__', language: 'cpp')
 endif
+
 if get_option('FEATURE_MODPLUG')
     common_deps += dependency('libmodplug')
     add_project_arguments('-D__MODPLUG__')
 endif
+
 if get_option('FEATURE_FAAD')
     add_project_arguments('-D__FAAD__', language:'cpp')
-    libmp4_dep = dependency('mp4v2', required: false) # Disable mp4, libmp4 dependency not found on Ubuntu Disco
+    libmp4_dep = dependency('mp4v2', required: false)
     if libmp4_dep.found()
         add_project_arguments('-D__MP4V2__', language:'cpp')
     else
@@ -122,10 +126,12 @@ if get_option('FEATURE_FAAD')
     endif
     common_deps += libmp4_dep
 endif
+
 if get_option('FEATURE_WAVPACK')
     common_deps += dependency('wavpack')
     add_project_arguments('-D__WV__', language:'cpp')
 endif
+
 if get_option('FEATURE_BROADCASTING')
     add_project_arguments('-D__BROADCAST__', language:'cpp')
     common_deps += dependency('shout')
@@ -135,11 +141,13 @@ if get_option('FEATURE_BROADCASTING')
         endforeach
     endif
 endif
+
 if get_option('FEATURE_OPUS')
     add_project_arguments('-D__OPUS__', language:'cpp')
     common_deps += dependency('opusfile')
     common_deps += dependency('opus')
 endif
+
 if get_option('FEATURE_FFMPEG')
         add_project_arguments('-D__STDC_CONSTANT_MACROS', '-D__STD_LIMIT_MACROS', '-D__STD_FORMAT_MACROS', '-D__FFMPEGFILE__', language: 'cpp')
     if ['linux', 'darwin', 'freebsd'].contains(host_machine.system())
@@ -147,24 +155,22 @@ if get_option('FEATURE_FFMPEG')
             common_deps += dependency(lib)
         endforeach
     else
-        foreach lib : ['avcodec', 'avformat', 'avutil', 'z', 'swresample', 'gsm', 'vorbisenc', 'vorbis', 'm', 'ogg']
+        foreach lib : ['avcodec', 'avformat', 'avutil', 'z', 'swresample', 'gsm', 'vorbisenc', 'vorbis', 'ogg']
             common_deps += cc.find_library(lib)
         endforeach
     endif
 endif
-if get_option('FEATURE_LV2')
-    if not ['linux', 'darwin', 'freebsd'].contains(host_machine.system())
-        error('LV2 is only available on Linux, OSX and FreeBSD.')
-    endif
+FEATURE_LV2 = get_option('FEATURE_LV2') and ['linux', 'darwin', 'freebsd'].contains(host_machine.system())
+if FEATURE_LV2
     add_project_arguments('-D__LILV__', language: 'cpp')
     common_deps += dependency('lilv-0')
 endif
-if get_option('FEATURE_BATTERY')
-    if not ['linux', 'windows', 'darwin'].contains(host_machine.system())
-        error('Battery support is only available on Linux, OSX and Windows.')
-    endif
+
+FEATURE_BATTERY = get_option('FEATURE_BATTERY') and ['windows', 'linux', 'darwin'].contains(host_machine.system())
+if FEATURE_BATTERY
     add_project_arguments('-D__BATTERY__', language:'cpp')
 endif
+
 if get_option('FEATURE_QTKEYCHAIN')
     add_project_arguments('-D__QTKEYCHAIN__')
     common_deps += dependency('qt5keychain')

@@ -1,4 +1,4 @@
-if not get_option('ENABLE_HID')
+if not FEATURE_HID
     subdir_done()
 endif
 

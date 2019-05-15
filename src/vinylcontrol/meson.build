@@ -1,4 +1,4 @@
-if not get_option('FEATURE_VINYLCONTOL')
+if not get_option('FEATURE_VINYLCONTROL')
     subdir_done()
 endif
 
