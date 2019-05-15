@@ -32,6 +32,7 @@ gtest_dep = subproject('gtest-1.7.0').get_variable('gtest_mainless_dep')
 pa_ringbuf_dep = subproject('pa-ringbuffer').get_variable('pa_ringbuffer_dep')
 libebur128_dep = subproject('libebur128').get_variable('ebur128_dep')
 replaygain_dep = subproject('replaygain').get_variable('replaygain_dep')
+qm_dsp_dep = subproject('qm-dsp').get_variable('qm_dsp_dep')
 qtscript_bytearray_dep = subproject('qtscript-bytearray').get_variable('qtscript_bytearray_dep')
 xwax_dep = subproject('xwax').get_variable('xwax_dep')
 
@@ -46,6 +47,7 @@ common_deps = [
     pa_ringbuf_dep,
     libebur128_dep,
     replaygain_dep,
+    qm_dsp_dep,
     qtscript_bytearray_dep,
     xwax_dep
 ]
