@@ -93,12 +93,19 @@ message('Building @0@ - rev. @1@'.format(git_branch, git_rev))
 
 # Override MIXXX VERSION define with meson project version
 extra_cc_flags = [
-    '-DMIXXX_VERSION=@0@'.format(meson.project_version())
+    '-DMIXXX_VERSION="@0@"'.format(meson.project_version())
 ]
 
+# Process Qt UI files
 ui_processed = qt5_mod.preprocess(ui_files: src_ui_files)
 
-libmixxx = static_library('libmixxx', src_mixxx, ui_processed, gen_proto,
+# Generate build.h file
+conf_build = configuration_data()
+conf_build.set_quoted('BUILD_BRANCH', git_branch)
+conf_build.set_quoted('BUILD_REV', git_rev)
+build_h = configure_file(output: 'build.h', configuration: conf_build)
+
+libmixxx = static_library('libmixxx', src_mixxx, build_h, ui_processed, gen_proto,
   dependencies: common_deps,
   include_directories: inc_project,
   cpp_args: extra_cc_flags
