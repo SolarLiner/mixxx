@@ -28,6 +28,7 @@ libusb_dep = dependency('libusb-1.0')
 libmodplug_dep = dependency('libmodplug')
 lilv_dep = dependency('lilv-0', required: get_option('FEATURE_LV2'))
 portaudio_dep = dependency('portaudio-2.0')
+upower_dep = dependency('upower-glib', required: host_machine.system() == 'linux')
 wavpack_dep = dependency('wavpack')
 
 # Subprojects
@@ -49,6 +50,7 @@ common_deps = [
     libmodplug_dep,
     lilv_dep,
     portaudio_dep,
+    upower_dep,
     wavpack_dep,
     fidlib_dep,
     gtest_dep,
