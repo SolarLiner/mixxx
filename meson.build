@@ -28,9 +28,14 @@ qt5_dep = dependency('qt5', modules: [
     'Xml'
 ])
 protobuf_dep = dependency('protobuf')
+
+id3tag_dep = dependency('id3tag')
 lilv_dep = dependency('lilv-0', required: get_option('FEATURE_LV2'))
+ogg_dep = dependency('ogg')
 portaudio_dep = dependency('portaudio-2.0')
 upower_dep = dependency('upower-glib', required: host_machine.system() == 'linux')
+vorbis_dep = dependency('vorbis')
+vorbisenc_dep = dependency('vorbisenc')
 x11_dep = dependency('x11', required: host_machine.system() == 'linux')
 
 # Subprojects
@@ -48,9 +53,13 @@ common_deps = [
     threads_dep,
     opus_dep,
     qt5_dep,
+    id3tag_dep,
     lilv_dep,
+    ogg_dep,
     portaudio_dep,
     upower_dep,
+    vorbis_dep,
+    vorbisenc_dep,
     x11_dep,
     fidlib_dep,
     pa_ringbuf_dep,
