@@ -1,10 +1,6 @@
 src_mixxx += files([
     './encoderbroadcastsettings.cpp',
     './encoder.cpp',
-    './encoderffmpegcore.cpp',
-    './encoderffmpegmp3.cpp',
-    './encoderffmpegresample.cpp',
-    './encoderffmpegvorbis.cpp',
     './encoderflacsettings.cpp',
     './encodermp3.cpp',
     './encodermp3settings.cpp',
@@ -16,3 +12,12 @@ src_mixxx += files([
     './encoderwave.cpp',
     './encoderwavesettings.cpp'
 ])
+
+if get_option('FEATURE_FFMPEG')
+    src_mixxx += files([
+        './encoderffmpegcore.cpp',
+        './encoderffmpegresample.cpp',
+        './encoderffmpegmp3.cpp',
+        './encoderffmpegvorbis.cpp'
+    ])
+endif

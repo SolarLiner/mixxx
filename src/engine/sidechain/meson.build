@@ -3,6 +3,9 @@ src_mixxx += files([
     './enginerecord.cpp',
     './enginesidechain.cpp',
     './networkinputstreamworker.cpp',
-    './networkoutputstreamworker.cpp',
-    './shoutconnection.cpp'
+    './networkoutputstreamworker.cpp'
 ])
+
+if get_option('FEATURE_BROADCASTING')
+    src_mixxx += files('./shoutconnection.cpp')
+endif

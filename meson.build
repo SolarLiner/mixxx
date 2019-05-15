@@ -1,5 +1,8 @@
 project('mixxx', 'c', 'cpp', version: '2.3.0a-pre', default_options:['cpp_std=c++11'])
 
+# Get compiler for future reference
+cc = meson.get_compiler('cpp')
+
 # Utils
 git_exe = find_program('git')
 
@@ -27,7 +30,6 @@ protobuf_dep = dependency('protobuf')
 lilv_dep = dependency('lilv-0', required: get_option('FEATURE_LV2'))
 portaudio_dep = dependency('portaudio-2.0')
 upower_dep = dependency('upower-glib', required: host_machine.system() == 'linux')
-wavpack_dep = dependency('wavpack')
 x11_dep = dependency('x11', required: host_machine.system() == 'linux')
 
 # Subprojects
@@ -46,7 +48,6 @@ common_deps = [
     lilv_dep,
     portaudio_dep,
     upower_dep,
-    wavpack_dep,
     x11_dep,
     fidlib_dep,
     pa_ringbuf_dep,
@@ -98,7 +99,6 @@ if get_option('FEATURE_MEDIAFOUNDATION')
     if not host_machine.system() == 'windows'
         error('Media Foundation is only available on Windows.')
     endif
-    cc = meson.get_compiler('cpp')
     foreach lib : ['Ole32', 'Mfuuid', 'Mfplat', 'Mfreadwrite']
         common_deps += cc.find_library(lib)
     endforeach
@@ -124,7 +124,50 @@ if get_option('FEATURE_FAAD')
 endif
 if get_option('FEATURE_WAVPACK')
     common_deps += dependency('wavpack')
-    add_project_arguments('-D__WV__')
+    add_project_arguments('-D__WV__', language:'cpp')
+endif
+if get_option('FEATURE_BROADCASTING')
+    add_project_arguments('-D__BROADCAST__', language:'cpp')
+    common_deps += dependency('shout')
+    if host_machine.system() == 'windows'
+        foreach lib : ['winmm', 'ws2_32', 'gdi32']
+            common_deps += cc.find_library(lib)
+        endforeach
+    endif
+endif
+if get_option('FEATURE_OPUS')
+    add_project_arguments('-D__OPUS__', language:'cpp')
+    common_deps += dependency('opusfile')
+    common_deps += dependency('opus')
+endif
+if get_option('FEATURE_FFMPEG')
+        add_project_arguments('-D__STDC_CONSTANT_MACROS', '-D__STD_LIMIT_MACROS', '-D__STD_FORMAT_MACROS', '-D__FFMPEGFILE__', language: 'cpp')
+    if ['linux', 'darwin', 'freebsd'].contains(host_machine.system())
+        foreach lib : ['libavcodec', 'libavformat', 'libavutil']
+            common_deps += dependency(lib)
+        endforeach
+    else
+        foreach lib : ['avcodec', 'avformat', 'avutil', 'z', 'swresample', 'gsm', 'vorbisenc', 'vorbis', 'm', 'ogg']
+            common_deps += cc.find_library(lib)
+        endforeach
+    endif
+endif
+if get_option('FEATURE_LV2')
+    if not ['linux', 'darwin', 'freebsd'].contains(host_machine.system())
+        error('LV2 is only available on Linux, OSX and FreeBSD.')
+    endif
+    add_project_arguments('-D__LILV__', language: 'cpp')
+    common_deps += dependency('lilv-0')
+endif
+if get_option('FEATURE_BATTERY')
+    if not ['linux', 'windows', 'darwin'].contains(host_machine.system())
+        error('Battery support is only available on Linux, OSX and Windows.')
+    endif
+    add_project_arguments('-D__BATTERY__', language:'cpp')
+endif
+if get_option('FEATURE_QTKEYCHAIN')
+    add_project_arguments('-D__QTKEYCHAIN__')
+    common_deps += dependency('qt5keychain')
 endif
 
 # Other toggleable options
@@ -145,6 +188,16 @@ endif
 if get_option('ENABLE_TEST_SUITE')
     common_deps += subproject('gmock-1.7.0').get_variable('gmock_dep')
     common_deps += subproject('benchmark').get_variable('benchmark_dep')
+endif
+if get_option('ENABLE_LOCALECOMPARE')
+    if not cc.cmd_array().contains('qt_sqlite_plugin')
+        error('Locale-aware comparison in SQLite is only available with native SQLite 3, not through QT\'s SQLite plugin.')
+    endif
+endif
+
+# Optionally target macOS app store
+if get_option('TARGET_APPSTORE')
+    add_project_arguments('-D__MACAPPSTORE__')
 endif
 
 # Build up the sources variable

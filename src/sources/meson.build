@@ -4,7 +4,6 @@ src_mixxx += files([
     './libfaadloader.cpp',
     './metadatasourcetaglib.cpp',
     './soundsource.cpp',
-    './soundsourceffmpeg.cpp',
     './soundsourceflac.cpp',
     './soundsourcemodplug.cpp',
     './soundsourceoggvorbis.cpp',
@@ -30,4 +29,8 @@ endif
 
 if get_option('FEATURE_MP4')
     src_mixxx += files('./soundsourcem4a.cpp')
+endif
+
+if get_option('FEATURE_FFMPEG')
+    src_mixxx += files('./soundsourceffmpeg.cpp')
 endif
