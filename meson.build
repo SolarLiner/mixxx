@@ -12,6 +12,7 @@ opus_dep = dependency('opus')
 qt5_dep = dependency('qt5', modules: [
     'Core',
     'Concurrent',
+    'DBus',
     'Gui',
     'Network',
     'OpenGL',
@@ -26,6 +27,8 @@ protobuf_dep = dependency('protobuf')
 libusb_dep = dependency('libusb-1.0')
 libmodplug_dep = dependency('libmodplug')
 lilv_dep = dependency('lilv-0', required: get_option('FEATURE_LV2'))
+portaudio_dep = dependency('portaudio-2.0')
+wavpack_dep = dependency('wavpack')
 
 # Subprojects
 fidlib_dep = subproject('fidlib').get_variable('fidlib_dep')
@@ -45,6 +48,8 @@ common_deps = [
     libusb_dep,
     libmodplug_dep,
     lilv_dep,
+    portaudio_dep,
+    wavpack_dep,
     fidlib_dep,
     gtest_dep,
     pa_ringbuf_dep,
@@ -99,7 +104,7 @@ libmixxx = static_library('libmixxx', src_mixxx, ui_processed, gen_proto,
   cpp_args: extra_cc_flags
 )
 
-mixxx_main = executable('mixxx', ['src/main.cpp'],
+mixxx_main = executable('mixxx', ['src/main.cpp'], gen_proto,
     link_with: [libmixxx, mixxx_qrc],
     include_directories: inc_project,
     dependencies: [qt5_dep],
